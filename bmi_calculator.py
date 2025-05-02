@@ -25,3 +25,20 @@ def calculate_bmi(weight_lbs: float, height_ft: int, height_in: int):
     # It is a BMI calculation
     bmi = (weight_lbs / (total_height_in ** 2)) * 703
     return round(bmi, 2)
+
+def bmi_category(bmi: float):
+    """
+    It determine the BMI category based on the BMI range value.
+    Parameters:
+        bmi (float): It is a BMI number
+    Returns:
+        str: A string shows and tells the BMI category
+    """
+    if bmi < 18.5:
+        return "Underweight"
+    elif 18.5 <= bmi < 24.9:
+        return "Normal weight"
+    elif 25 <= bmi < 29.9:
+        return "Overweight"
+    else:
+        return "Obese"
