@@ -65,14 +65,28 @@ def main():
     # Create a Log object
     log = Log(datetime.date.today(), '', 0)
     
-    # Example workouts
-    workouts = [
-        (datetime.date(2023, 10, 1), 'Running', 30),
-        (datetime.date(2023, 10, 2), 'Cycling', 45),
-        (datetime.date(2023, 10, 3), 'Swimming', 60),
-        (datetime.date(2023, 10, 4), 'Running', 25),
-        (datetime.date(2023, 10, 5), 'Cycling', 50)
-    ]
+    # take user input for workouts
+    workouts = []
+    while True:
+        date_input = input("Enter the date of the workout (YYYY-MM-DD) or 'done' to finish: ")
+        if date_input.lower() == 'done':
+            break
+        try:
+            date = datetime.datetime.strptime(date_input, '%Y-%m-%d').date()
+        except ValueError:
+            print("Invalid date format. Please enter the date in YYYY-MM-DD format.")
+            continue
+        
+        workout_type = input("Enter the type of workout: ")
+        duration_input = input("Enter the duration of the workout in minutes: ")
+        
+        try:
+            duration = int(duration_input)
+        except ValueError:
+            print("Invalid duration. Please enter a number.")
+            continue
+        
+        workouts.append((date, workout_type, duration))
     
     # Add workouts to the log
     for date, workout_type, duration in workouts:
