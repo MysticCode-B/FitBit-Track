@@ -56,14 +56,3 @@ class BodyMeasurementTracker:
                 print(f"  {key}: {value} inches")
             print("-" * 20)
 
-# Example Usage:
-tracker = BodyMeasurementTracker()
-
-# Log initial measurements
-tracker.log_measurement(datetime.date(2025, 4, 20), arm_width=12.5, waist_width=30.0, leg_width=22.0)
-
-# Update a measurement
-tracker.update_measurement(datetime.date(2025, 4, 20), Arm_Width=13.0)
-
-# Display all measurements
-tracker.display_measurements()
