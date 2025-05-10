@@ -1,10 +1,7 @@
 # Comment testing for commit changes
 # This script tracks workouts and provides a summary of the total time spent on each type of workout.
 import datetime 
-import re
-import os
-import sys
-import json
+
 
 class Log:
     """
@@ -61,49 +58,4 @@ class Log:
         """
         return self.workout_summary
     
-def main():
-    # Create a Log object
-    log = Log(datetime.date.today(), '', 0)
-    
-    # take user input for workouts
-    workouts = []
-    while True:
-        date_input = input("Enter the date of the workout (YYYY-MM-DD) or 'done' to finish: ")
-        if date_input.lower() == 'done':
-            break
-        try:
-            date = datetime.datetime.strptime(date_input, '%Y-%m-%d').date()
-        except ValueError:
-            print("Invalid date format. Please enter the date in YYYY-MM-DD format.")
-            continue
-        
-        workout_type = input("Enter the type of workout: ")
-        duration_input = input("Enter the duration of the workout in minutes: ")
-        
-        try:
-            duration = int(duration_input)
-        except ValueError:
-            print("Invalid duration. Please enter a number.")
-            continue
-        
-        workouts.append((date, workout_type, duration))
-    
-    # Add workouts to the log
-    for date, workout_type, duration in workouts:
-        log.add_workout(date, workout_type, duration)
-    
-    # Get the summary of workouts
-    summary = log.get_summary()
-    
-    # Print the summary
-    print("Workout Summary:")
-    for workout_type, total_duration in summary.items():
-        print(f"{workout_type}: {total_duration} minutes")
-    # Save the log to a file
-    with open('workout_log.json', 'w') as f:
-        json.dump(log.workout_log, f, default=str)
-    
-if __name__ == "__main__":
-    main()
-# This script tracks workouts and provides a summary of the total time spent on each type of workout.
         
