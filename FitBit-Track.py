@@ -89,3 +89,53 @@ def body_measurments_tracker(data):
     data['profile']['measurements'][date] = tracker.measurements[date]
     save_data(data)
     print("Body measurements logged successfully!\n")
+
+def file_summary_report(data):
+    if 'profile' not in data:
+        print("Please create a profile first.")
+        return
+
+    print("\n--- Summary Report ---")
+    print(f"Name: {data['profile']['name']}")
+    print(f"Age: {data['profile']['age']}")
+    print(f"Height: {data['profile']['height']} m")
+    print(f"Weight: {data['profile']['weight']} kg")
+    
+    if 'workouts' in data['profile']:
+        print("\nWorkouts:")
+        for workout in data['profile']['workouts']:
+            print(f"  Date: {workout['date']}, Type: {workout['workout_type']}, Duration: {workout['duration']} minutes")
+
+    if 'measurements' in data['profile']:
+        print("\nBody Measurements:")
+        for date, measurements in data['profile']['measurements'].items():
+            print(f"  Date: {date}, Arm Width: {measurements['Arm Width']} inches, Waist Width: {measurements['Waist Width']} inches, Leg Width: {measurements['Leg Width']} inches")
+
+    print("-" * 20)
+    print("Summary report generated successfully!\n")
+
+def main():
+    data = load_data()
+
+    while True:
+        choice = main_menu()
+        
+        if choice == '1':
+            create_profile(data)
+        elif choice == '2':
+            log_workout(data)
+        elif choice == '3':
+            calculate_bmi(data)
+        elif choice == '4':
+            body_measurments_tracker(data)
+        elif choice == '5':
+            file_summary_report(data)
+        elif choice == '6':
+            print("Exiting the program.")
+            break
+        else:
+            print("Invalid choice. Please try again.")
+        print("\n")
+
+if __name__ == "__main__":
+    main()
