@@ -70,15 +70,27 @@ def log_workout(data):
     save_data(data)
     print("Workout logged successfully!\n")
 
-def calculate_bmi(data):
-    if 'profile' not in data:
-        print("Please create a profile first.")
-        return
+def bmi_category(bmi):
+    if bmi < 18.5:
+        return "Underweight"
+    elif 18.5 <= bmi < 24.9:
+        return "Normal weight"
+    elif 25 <= bmi < 29.9:
+        return "Overweight"
+    else:
+        return "Obese"
 
-    height = data['profile']['height']
-    weight = data['profile']['weight']
-    bmi = calculate_bmi(weight, height)
-    print(f"Your BMI is: {bmi:.2f}\n")
+def run_bmi_calculator():
+    try:
+        weight = float(input("Enter your weight in pounds (lbs): "))
+        feet = int(input("Enter your height (Feet): "))
+        inches = int(input("Enter your height (Inches): "))
+        bmi = calculate_bmi(weight, feet, inches)
+        category = bmi_category(bmi)
+        print(f"\nYour BMI is: {bmi}")
+        print(f"You are in the '{category}' category.")
+    except ValueError:
+        print("Invalid input. Please enter numbers only.")
 
 def body_measurments_tracker(data):
     if 'profile' not in data:
