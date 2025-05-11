@@ -42,3 +42,22 @@ def bmi_category(bmi: float):
         return "Overweight"
     else:
         return "Obese"
+def run_bmi_calculator():
+    """
+    Run the BMI calculator by asking the user for weight and height,
+    then showing their BMI and category.
+    """
+    try:
+        weight = float(input("Enter your weight in pounds (lbs): "))
+        feet = int(input("Enter your height (Feet): "))
+        inches = int(input("Enter your height (Inches): "))
+        bmi = calculate_bmi(weight, feet, inches)
+        category = bmi_category(bmi)
+        print(f"\nYour BMI is: {bmi}")
+        print(f"You are in the '{category}' category.")
+    
+    except ValueError as e:
+        print(f"Error: {e}")
+# If this file is run directly, start the calculator
+if __name__ == "__main__":
+    run_bmi_calculator()
