@@ -34,13 +34,19 @@ def main_menu():
 
 # Create user profile
 def create_profile(data):
+    if 'profiles' not in data:
+        data['profiles'] = {}
+
     name = input("Enter your name: ")
+    if name in data['profiles']:
+        print("A profile with this name already exists. Please choose a different name.")
+        return
+
     age = input("Enter your age: ")
     height = float(input("Enter your height in meters: "))
     weight = float(input("Enter your weight in kgs: "))
 
-    data['profile'] = {
-        'name': name,
+    data['profiles'][name] = {
         'age': age,
         'height': height,
         'weight': weight,
@@ -136,6 +142,7 @@ def main():
         else:
             print("Invalid choice. Please try again.")
         print("\n")
+
 
 if __name__ == "__main__":
     main()
