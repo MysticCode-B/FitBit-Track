@@ -17,7 +17,7 @@ def load_data():
 # Save user data to file
 def save_data(data):
     with open(DATA_FILE, 'w') as file:
-        json.dump(data, file, indent=4)
+        json.dump(data, file, indent = 4)
 
 # Main Menu
 def main_menu():
@@ -42,10 +42,14 @@ def create_profile(data):
         print("A profile with this name already exists. Please choose a different name.")
         return
 
-    age = input("Enter your age: ")
-    height_ft = float(input("Enter your height in feets: "))
-    height_in = float(input("Enter your height in inches: "))
-    weight = float(input("Enter your weight in kgs: "))
+    age = int(input("Enter your age: "))
+    try:
+        height_ft = float(input("Enter your height in feets: "))
+        height_in = float(input("Enter your height in inches: "))
+        weight = float(input("Enter your weight in lbs: "))
+    except ValueError:
+        print("Invalid input. Please enter numeric values for height and weight.")
+        return
 
     data['profiles'][name] = {
         'age': age,
@@ -59,7 +63,7 @@ def create_profile(data):
     print("Profile created successfully!\n")
 
 def log_workout(data):
-    if 'profile' not in data:
+    if 'profiles' not in data:
         print("Please create a profile first.")
         return
 
@@ -68,13 +72,13 @@ def log_workout(data):
     duration = int(input("Enter the duration of the workout in minutes: "))
 
     log = Log(date, workout_type, duration)
-    data['profile']['workouts'].append(log.__dict__)
+    data['profiles']['workouts'].append(log.__dict__)
     save_data(data)
     print("Workout logged successfully!\n")
 
 # This will calculate the BMI from imports when the user selects the option
 def calculate_bmi(data):
-    if 'profile' not in data:
+    if 'profiles' not in data:
         print("Please create a profile first.")
         return
 
@@ -85,7 +89,9 @@ def calculate_bmi(data):
 
     profile = data['profiles'][name]
     weight = profile['weight']
-    height_ft = profile['height']
+    height_ft = profile['height_ft']
+    height_in = profile['height_in']
+
 
     # importing the function from bmi_calculator.py
     bmi = calculate_bmi(weight, height_ft)
@@ -94,7 +100,7 @@ def calculate_bmi(data):
     print(f"You are in the '{category}' category.\n")
 
 def body_measurments_tracker(data):
-    if 'profile' not in data:
+    if 'profiles' not in data:
         print("Please create a profile first.")
         return
 
@@ -105,29 +111,29 @@ def body_measurments_tracker(data):
     leg_width = float(input("Enter leg width in inches: "))
 
     tracker.log_measurement(date, arm_width, waist_width, leg_width)
-    data['profile']['measurements'][date] = tracker.measurements[date]
+    data['profiles']['measurements'][date] = tracker.measurements[date]
     save_data(data)
     print("Body measurements logged successfully!\n")
 
 def file_summary_report(data):
-    if 'profile' not in data:
+    if 'profiles' not in data:
         print("Please create a profile first.")
         return
 
     print("\n--- Summary Report ---")
     print(f"Name: {data['profile']['name']}")
     print(f"Age: {data['profile']['age']}")
-    print(f"Height: {data['profile']['height']} m")
+    print(f"Height: {data['profile']['height_ft']['height_in']}")
     print(f"Weight: {data['profile']['weight']} kg")
     
-    if 'workouts' in data['profile']:
+    if 'workouts' in data['profiles']:
         print("\nWorkouts:")
-        for workout in data['profile']['workouts']:
+        for workout in data['profiles']['workouts']:
             print(f"  Date: {workout['date']}, Type: {workout['workout_type']}, Duration: {workout['duration']} minutes")
 
-    if 'measurements' in data['profile']:
+    if 'measurements' in data['profiles']:
         print("\nBody Measurements:")
-        for date, measurements in data['profile']['measurements'].items():
+        for date, measurements in data['profiles']['measurements'].items():
             print(f"  Date: {date}, Arm Width: {measurements['Arm Width']} inches, Waist Width: {measurements['Waist Width']} inches, Leg Width: {measurements['Leg Width']} inches")
 
     print("-" * 20)
