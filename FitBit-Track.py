@@ -1,7 +1,7 @@
 import json
 import os
 from workout_tracker import Log
-from bmi_calculator import calculate_bmi
+from bmi_calculator import run_bmi_calculator, calculate_bmi
 from body_measurment import BodyMeasurementTracker
 
 # File path for storing user data
@@ -43,12 +43,14 @@ def create_profile(data):
         return
 
     age = input("Enter your age: ")
-    height = float(input("Enter your height in meters: "))
+    height_ft = float(input("Enter your height in feets: "))
+    height_in = float(input("Enter your height in inches: "))
     weight = float(input("Enter your weight in kgs: "))
 
     data['profiles'][name] = {
         'age': age,
-        'height': height,
+        'height_ft': height_ft,
+        'height_in': height_in,
         'weight': weight,
         'measurements': {},
         'workouts': []
@@ -70,27 +72,26 @@ def log_workout(data):
     save_data(data)
     print("Workout logged successfully!\n")
 
-def bmi_category(bmi):
-    if bmi < 18.5:
-        return "Underweight"
-    elif 18.5 <= bmi < 24.9:
-        return "Normal weight"
-    elif 25 <= bmi < 29.9:
-        return "Overweight"
-    else:
-        return "Obese"
+# This will calculate the BMI from imports when the user selects the option
+def calculate_bmi(data):
+    if 'profile' not in data:
+        print("Please create a profile first.")
+        return
 
-def run_bmi_calculator():
-    try:
-        weight = float(input("Enter your weight in pounds (lbs): "))
-        feet = int(input("Enter your height (Feet): "))
-        inches = int(input("Enter your height (Inches): "))
-        bmi = calculate_bmi(weight, feet, inches)
-        category = bmi_category(bmi)
-        print(f"\nYour BMI is: {bmi}")
-        print(f"You are in the '{category}' category.")
-    except ValueError:
-        print("Invalid input. Please enter numbers only.")
+    name = input("Enter your name: ")
+    if name not in data['profiles']:
+        print("Profile not found. Please create a profile first.")
+        return
+
+    profile = data['profiles'][name]
+    weight = profile['weight']
+    height_ft = profile['height']
+
+    # importing the function from bmi_calculator.py
+    bmi = calculate_bmi(weight, height_ft)
+    category = run_bmi_calculator(bmi)
+    print(f"\nYour BMI is: {bmi}")
+    print(f"You are in the '{category}' category.\n")
 
 def body_measurments_tracker(data):
     if 'profile' not in data:
