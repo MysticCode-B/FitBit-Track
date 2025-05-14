@@ -2,7 +2,7 @@ import json
 import os
 from workout_tracker import Log
 from bmi_calculator import run_bmi_calculator, calculate_bmi
-from body_measurment import BodyMeasurementTracker
+from body_measurement import BodyMeasurementTracker
 
 # File path for storing user data
 DATA_FILE = "fitness_data.json"
