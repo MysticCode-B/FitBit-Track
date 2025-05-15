@@ -2,7 +2,7 @@ import json
 import os
 from workout_tracker import Log
 from bmi_calculator import run_bmi_calculator, calculate_bmi
-from body_measurment import BodyMeasurementTracker
+from body_measurement import BodyMeasurementTracker
 
 # File path for storing user data
 DATA_FILE = "fitness_data.json"
@@ -65,6 +65,11 @@ def create_profile(data):
 def log_workout(data):
     if 'profiles' not in data or not data['profiles']:
         print("Please create a profile first.")
+        return
+    
+    name = input("Enter your name: ")
+    if name not in data['profiles']:
+        print("Profile not found.")
         return
 
     # Ask the user to select a profile
