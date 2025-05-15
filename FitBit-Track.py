@@ -1,25 +1,25 @@
 import json
 import os
 from workout_tracker import Log
-from bmi_calculator import run_bmi_calculator, calculate_bmi
+from bmi_calculator import run_bmi_calculator, calculate_bmi as bmi_calculator
 from body_measurement import BodyMeasurementTracker
 
-# File path for storing user data
+
 DATA_FILE = "fitness_data.json"
 
-# Load user data from file
+#Load user data from file 
 def load_data():
     if os.path.exists(DATA_FILE):
         with open(DATA_FILE, 'r') as file:
             return json.load(file)
     return {}
 
-# Save user data to file
+# Save user data to file 
 def save_data(data):
     with open(DATA_FILE, 'w') as file:
-        json.dump(data, file, indent = 4)
+        json.dump(data, file, indent=4)
 
-# Main Menu
+#Main Menu
 def main_menu():
     print("\n--- Fitness Tracker ---")
     print("1. Create Profile")
@@ -28,11 +28,9 @@ def main_menu():
     print("4. Track Body Measurements")
     print("5. View Summary Report")
     print("6. Exit")
+    return input("Select an option: ")
 
-    choice = input("Select an option: ")
-    return choice
-
-# Create user profile
+# Create user Profile 
 def create_profile(data):
     if 'profiles' not in data:
         data['profiles'] = {}
@@ -42,9 +40,9 @@ def create_profile(data):
         print("A profile with this name already exists. Please choose a different name.")
         return
 
-    age = int(input("Enter your age: "))
     try:
-        height_ft = float(input("Enter your height in feets: "))
+        age = int(input("Enter your age: "))
+        height_ft = float(input("Enter your height in feet: "))
         height_in = float(input("Enter your height in inches: "))
         weight = float(input("Enter your weight in lbs: "))
     except ValueError:
@@ -66,91 +64,109 @@ def log_workout(data):
     if 'profiles' not in data or not data['profiles']:
         print("Please create a profile first.")
         return
-    
-    name = input("Enter your name: ")
-    if name not in data['profiles']:
-        print("Profile not found.")
-        return
 
-    # Ask the user to select a profile
+    # Ask the user to select a profile 
     print("Available profiles:")
     for name in data['profiles']:
         print(f"- {name}")
     name = input("Enter the name of the profile to log the workout: ")
 
     if name not in data['profiles']:
-        print("Profile not found. Please create a profile first.")
+        print("Profile not found.")
         return
 
-    # Log the workout for the selected profile
+   
+    #log the workout for the select profile 
     date = input("Enter the date of the workout (YYYY-MM-DD): ")
     workout_type = input("Enter the type of workout: ")
-    duration = int(input("Enter the duration of the workout in minutes: "))
+    try:
+        duration = int(input("Enter the duration of the workout in minutes: "))
+    except ValueError:
+        print("Invalid input for duration.")
+        return
 
     log = Log(date, workout_type, duration)
-    data['profiles'][name]['workouts'].append(log.__dict__)  # Update the correct profile's workouts
+    data['profiles'][name]['workouts'].append(log.__dict__) #Update the correct profile's workout
     save_data(data)
     print("Workout logged successfully!\n")
-
+    
 # This will calculate the BMI from imports when the user selects the option
-def calculate_bmi(data):
-    if 'profiles' not in data:
+def calculate_bmi_option(data):
+    if 'profiles' not in data or not data['profiles']:
         print("Please create a profile first.")
         return
 
     name = input("Enter your name: ")
     if name not in data['profiles']:
-        print("Profile not found. Please create a profile first.")
+        print("Profile not found.")
         return
 
     profile = data['profiles'][name]
-    weight = profile['weight']
-    height_ft = profile['height_ft']
-    height_in = profile['height_in']
-
-
-    # importing the function from bmi_calculator.py
-    bmi = calculate_bmi(weight, height_ft, height_in)
+    #importing the function from bmi_calculator.py
+    bmi = bmi_calculator(profile['weight'], profile['height_ft'], profile['height_in']) 
     category = run_bmi_calculator(bmi)
     print(f"\nYour BMI is: {bmi}")
     print(f"You are in the '{category}' category.\n")
 
-def body_measurments_tracker(data):
-    if 'profiles' not in data:
+def body_measurements_tracker(data):
+    if 'profiles' not in data or not data['profiles']:
         print("Please create a profile first.")
         return
 
+    print("Available profiles:")
+    for name in data['profiles']:
+        print(f"- {name}")
+    name = input("Enter the name to log body measurements: ")
+
+    if name not in data['profiles']:
+        print("Profile not found.")
+        return
+
     tracker = BodyMeasurementTracker()
-    date = input("Enter the date of the measurement (YYYY-MM-DD): ")
-    arm_width = float(input("Enter arm width in inches: "))
-    waist_width = float(input("Enter waist width in inches: "))
-    leg_width = float(input("Enter leg width in inches: "))
+    try:
+        date = input("Enter the date of the measurement (YYYY-MM-DD): ")
+        arm_width = float(input("Enter arm width in inches: "))
+        waist_width = float(input("Enter waist width in inches: "))
+        leg_width = float(input("Enter leg width in inches: "))
+    except ValueError:
+        print("Invalid input for measurements.")
+        return
 
     tracker.log_measurement(date, arm_width, waist_width, leg_width)
-    data['profiles']['measurements'][date] = tracker.measurements[date]
+    data['profiles'][name]['measurements'][date] = tracker.measurements[date]
     save_data(data)
     print("Body measurements logged successfully!\n")
 
 def file_summary_report(data):
-    if 'profiles' not in data:
+    if 'profiles' not in data or not data['profiles']:
         print("Please create a profile first.")
         return
 
+    print("Available profiles:")
+    for name in data['profiles']:
+        print(f"- {name}")
+    name = input("Enter the name to view summary: ")
+
+    if name not in data['profiles']:
+        print("Profile not found.")
+        return
+
+    profile = data['profiles'][name]
     print("\n--- Summary Report ---")
-    print(f"Name: {data['profiles']['name']}")
-    print(f"Age: {data['profiles']['age']}")
-    print(f"Height: {data['profiles']['height_ft']['height_in']}")
-    print(f"Weight: {data['profiles']['weight']} kg")
-    
-    if 'workouts' in data['profiles']:
+    print(f"Name: {name}")
+    print(f"Age: {profile['age']}")
+    print(f"Height: {profile['height_ft']} ft {profile['height_in']} in")
+    print(f"Weight: {profile['weight']} lbs")
+
+    if profile['workouts']:
         print("\nWorkouts:")
-        for workout in data['profiles']['workouts']:
+        for workout in profile['workouts']:
             print(f"  Date: {workout['date']}, Type: {workout['workout_type']}, Duration: {workout['duration']} minutes")
 
-    if 'measurements' in data['profiles']:
+    if profile['measurements']:
         print("\nBody Measurements:")
-        for date, measurements in data['profiles']['measurements'].items():
-            print(f"  Date: {date}, Arm Width: {measurements['Arm Width']} inches, Waist Width: {measurements['Waist Width']} inches, Leg Width: {measurements['Leg Width']} inches")
+        for date, measurements in profile['measurements'].items():
+            print(f"  Date: {date}, Arm Width: {measurements['Arm Width']} in, Waist Width: {measurements['Waist Width']} in, Leg Width: {measurements['Leg Width']} in")
 
     print("-" * 20)
     print("Summary report generated successfully!\n")
@@ -160,15 +176,15 @@ def main():
 
     while True:
         choice = main_menu()
-        
+
         if choice == '1':
             create_profile(data)
         elif choice == '2':
             log_workout(data)
         elif choice == '3':
-            calculate_bmi(data)
+            calculate_bmi_option(data)
         elif choice == '4':
-            body_measurments_tracker(data)
+            body_measurements_tracker(data)
         elif choice == '5':
             file_summary_report(data)
         elif choice == '6':
@@ -177,7 +193,6 @@ def main():
         else:
             print("Invalid choice. Please try again.")
         print("\n")
-
 
 if __name__ == "__main__":
     main()
