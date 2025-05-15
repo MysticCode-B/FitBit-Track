@@ -66,6 +66,11 @@ def log_workout(data):
     if 'profiles' not in data:
         print("Please create a profile first.")
         return
+    
+    name = input("Enter your name: ")
+    if name not in data['profiles']:
+        print("Profile not found.")
+        return
 
     date = input("Enter the date of the workout (YYYY-MM-DD): ")
     workout_type = input("Enter the type of workout: ")
