@@ -1,0 +1,12 @@
+{
+    "profiles": {
+        "Nimbus": {
+            "age": 20,
+            "height_ft": 5.0,
+            "height_in": 7.0,
+            "weight": 110.0,
+            "measurements": {},
+            "workouts": []
+        }
+    }
+}
