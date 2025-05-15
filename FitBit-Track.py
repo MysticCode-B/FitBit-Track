@@ -63,16 +63,27 @@ def create_profile(data):
     print("Profile created successfully!\n")
 
 def log_workout(data):
-    if 'profiles' not in data:
+    if 'profiles' not in data or not data['profiles']:
         print("Please create a profile first.")
         return
 
+    # Ask the user to select a profile
+    print("Available profiles:")
+    for name in data['profiles']:
+        print(f"- {name}")
+    name = input("Enter the name of the profile to log the workout: ")
+
+    if name not in data['profiles']:
+        print("Profile not found. Please create a profile first.")
+        return
+
+    # Log the workout for the selected profile
     date = input("Enter the date of the workout (YYYY-MM-DD): ")
     workout_type = input("Enter the type of workout: ")
     duration = int(input("Enter the duration of the workout in minutes: "))
 
     log = Log(date, workout_type, duration)
-    data['profiles']['workouts'].append(log.__dict__)
+    data['profiles'][name]['workouts'].append(log.__dict__)  # Update the correct profile's workouts
     save_data(data)
     print("Workout logged successfully!\n")
 
@@ -94,7 +105,7 @@ def calculate_bmi(data):
 
 
     # importing the function from bmi_calculator.py
-    bmi = calculate_bmi(weight, height_ft)
+    bmi = calculate_bmi(weight, height_ft, height_in)
     category = run_bmi_calculator(bmi)
     print(f"\nYour BMI is: {bmi}")
     print(f"You are in the '{category}' category.\n")
@@ -121,10 +132,10 @@ def file_summary_report(data):
         return
 
     print("\n--- Summary Report ---")
-    print(f"Name: {data['profile']['name']}")
-    print(f"Age: {data['profile']['age']}")
-    print(f"Height: {data['profile']['height_ft']['height_in']}")
-    print(f"Weight: {data['profile']['weight']} kg")
+    print(f"Name: {data['profiles']['name']}")
+    print(f"Age: {data['profiles']['age']}")
+    print(f"Height: {data['profiles']['height_ft']['height_in']}")
+    print(f"Weight: {data['profiles']['weight']} kg")
     
     if 'workouts' in data['profiles']:
         print("\nWorkouts:")
