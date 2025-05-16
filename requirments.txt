@@ -1,1 +1,10 @@
+# Required Python libraries for the Fitbit project
+
+# Command-line interface and interaction
+
+click
+
+# JSON handling
+
+jsonlib
 
