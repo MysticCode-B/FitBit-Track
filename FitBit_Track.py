@@ -21,6 +21,11 @@ def save_data(data):
 
 #Main Menu
 def main_menu():
+    """Display the main menu and return the user's choice.
+    This function presents the user with options to create a profile, log workouts, calculate BMI, track body measurements, view summary reports, or exit the program.
+    Returns:
+        str: The user's choice as a string.
+    """
     print("\n--- Fitness Tracker ---")
     print("1. Create Profile")
     print("2. Log Workout")
@@ -32,6 +37,13 @@ def main_menu():
 
 # Create user Profile 
 def create_profile(data):
+    """Create a new user profile.
+    This function prompts the user for their name, age, height, and weight, and saves this information in a JSON file.
+    Args:
+        data (dict): The user data loaded from the JSON file.
+    returns:
+        None
+    """
     if 'profiles' not in data:
         data['profiles'] = {}
 
@@ -61,6 +73,13 @@ def create_profile(data):
     print("Profile created successfully!\n")
 
 def log_workout(data):
+    """Log a workout for a selected profile.
+    This function prompts the user to select a profile and then logs a workout (date, type, duration).
+    Args:
+        data (dict): The user data loaded from the JSON file.
+    returns:
+        None
+    """
     if 'profiles' not in data or not data['profiles']:
         print("Please create a profile first.")
         return
@@ -97,7 +116,9 @@ def calculate_bmi_option(data):
     Args:
         data (dict): The user data loaded from the JSON file.
     returns:
-        None"""
+        None
+    """
+    
     if 'profiles' not in data or not data['profiles']:
         print("Please create a profile first.")
         return
@@ -115,6 +136,13 @@ def calculate_bmi_option(data):
     print(f"You are in the '{category}' category.\n")
 
 def body_measurements_tracker(data):
+    """Log body measurements for a selected profile.
+    This function prompts the user to select a profile and then logs body measurements (arm width, waist width, leg width).
+    Args:
+        data (dict): The user data loaded from the JSON file.
+    returns:
+        None
+    """
     if 'profiles' not in data or not data['profiles']:
         print("Please create a profile first.")
         return
@@ -144,6 +172,13 @@ def body_measurements_tracker(data):
     print("Body measurements logged successfully!\n")
 
 def file_summary_report(data):
+    """Generate a summary report for a selected profile.
+    This function prompts the user to select a profile and then displays a summary report including workouts and body measurements.
+    Args:
+        data (dict): The user data loaded from the JSON file.
+    returns:
+        None
+    """
     if 'profiles' not in data or not data['profiles']:
         print("Please create a profile first.")
         return
@@ -178,6 +213,12 @@ def file_summary_report(data):
     print("Summary report generated successfully!\n")
 
 def main():
+    """Main function to run the fitness tracker program.
+    This function initializes the program, loads user data, and presents the main menu to the user.
+    It handles user input and calls the appropriate functions based on the user's choice.
+    Returns:
+        None
+    """
     data = load_data()
 
     while True:
