@@ -1,0 +1,124 @@
+{
+    "profiles": {
+        "John Doe": {
+            "age": 33,
+            "height_ft": 5.0,
+            "height_in": 6.0,
+            "weight": 150.0,
+            "measurements": {},
+            "workouts": [
+                {
+                    "date": "2025-03-20",
+                    "workout_type": "Arms",
+                    "duration": 30,
+                    "workout_log": [],
+                    "workout_summary": {}
+                },
+                {
+                    "date": "2025-03-20",
+                    "workout_type": "Legs",
+                    "duration": 20,
+                    "workout_log": [],
+                    "workout_summary": {}
+                }
+            ]
+        },
+        "Jack": {
+            "age": 33,
+            "height_ft": 5.0,
+            "height_in": 7.0,
+            "weight": 130.0,
+            "measurements": {},
+            "workouts": [
+                {
+                    "date": "2025-03-02",
+                    "workout_type": "Arm",
+                    "duration": 30,
+                    "workout_log": [],
+                    "workout_summary": {}
+                }
+            ]
+        },
+        "John John": {
+            "age": 21,
+            "height_ft": 5.0,
+            "height_in": 6.0,
+            "weight": 120.0,
+            "measurements": {},
+            "workouts": [
+                {
+                    "date": "2025-03",
+                    "workout_type": "arm",
+                    "duration": 30,
+                    "workout_log": [],
+                    "workout_summary": {}
+                }
+            ]
+        },
+        "Jane Doe": {
+            "age": 23,
+            "height_ft": 5.0,
+            "height_in": 8.0,
+            "weight": 140.0,
+            "measurements": {},
+            "workouts": [
+                {
+                    "date": "2025-03-20",
+                    "workout_type": "Legs ",
+                    "duration": 30,
+                    "workout_log": [],
+                    "workout_summary": {}
+                }
+            ]
+        },
+        "Brandon": {
+            "age": 21,
+            "height_ft": 5.0,
+            "height_in": 6.0,
+            "weight": 140.0,
+            "measurements": {
+                "2025-03-02": {
+                    "Arm Width": 34.0,
+                    "Waist Width": 43.0,
+                    "Leg Width": 23.0
+                },
+                "2025-03-05": {
+                    "Arm Width": 43.0,
+                    "Waist Width": 32.0,
+                    "Leg Width": 42.0
+                }
+            },
+            "workouts": [
+                {
+                    "date": "2025-03-02",
+                    "workout_type": "Legs",
+                    "duration": 30,
+                    "workout_log": [],
+                    "workout_summary": {}
+                }
+            ]
+        },
+        "Nimbus": {
+            "age": 21,
+            "height_ft": 5.0,
+            "height_in": 6.0,
+            "weight": 150.0,
+            "measurements": {},
+            "workouts": []
+        },
+        "Obese": {
+            "age": 33,
+            "height_ft": 5.0,
+            "height_in": 9.0,
+            "weight": 230.0,
+            "measurements": {
+                "2025-04-03": {
+                    "Arm Width": 34.0,
+                    "Waist Width": 34.0,
+                    "Leg Width": 43.0
+                }
+            },
+            "workouts": []
+        }
+    }
+}
