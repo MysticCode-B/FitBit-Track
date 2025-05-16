@@ -13,9 +13,8 @@ All three modules are imported into a main script called "Fitbit_Track" for a be
 ## Features
 
 * User-friendly command-line interface (CLI).
-* Modular design with three separate Python scripts for easy maintenance and expansion.
-* Accurate BMI calculation with appropriate weight classification.
-* Detailed workout tracking with customizable exercise entries.
+* BMI calculation with appropriate weight classification.
+* Workout tracking with customizable exercise entries.
 * Body measurement tracking with a summary report to view at the end.
 
 ## Installation
