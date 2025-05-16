@@ -92,6 +92,12 @@ def log_workout(data):
     
 # This will calculate the BMI from imports when the user selects the option
 def calculate_bmi_option(data):
+    """Calculate BMI for a selected profile.
+    This function prompts the user to select a profile and then calculates the BMI based on the profile's weight and height.
+    Args:
+        data (dict): The user data loaded from the JSON file.
+    returns:
+        None"""
     if 'profiles' not in data or not data['profiles']:
         print("Please create a profile first.")
         return
