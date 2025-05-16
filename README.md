@@ -19,34 +19,30 @@ All three modules are imported into a main script called "Fitbit_Track" for a be
 
 ## Installation
 
-### Prerequisites
+## Prerequisites
 
-* Python 3.x installed on your system.
+* Python 3.x installed on your system
 
-### Setup
+Setup
 
-1. Clone the repository:
+## Clone the repository:
+```bash
+git clone https://github.com/MysticCode-B/FitBit_Track.git
+cd FitBit-Track
+```
+## Create a virtual environment (optional but recommended):
 
-   ```bash
-   git clone https://github.com/MysticCode-B/FitBit_Track.git
-   ```
-2. Navigate to the project directory:
+```bash
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+```
 
-   ```bash
-   cd FitBit_Track
-   ```
-3. Ensure python is installed on the system:
-
-   ## Mac
-
-   ```bash
-   Python --version
-   ```
-   ## Windows/Linux
-   
-      ```bash
-   python --V
-   ```
+## Install the required dependencies:
+```bash
+pip install -r requirements.txt
+# On Mac/Linux:
+pip3 install -r requirements.txt
+```
 
 ## Usage
 
@@ -55,6 +51,7 @@ All three modules are imported into a main script called "Fitbit_Track" for a be
    ```bash
    python Fitbit_Track.py
    ```
+   
 2. Follow the menu instructions to calculate BMI, track workouts, or record body measurements.
 
 ## Project Structure
